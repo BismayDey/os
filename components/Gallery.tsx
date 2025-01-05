@@ -1,45 +1,50 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryProps {
-  theme: 'light' | 'dark'
+  theme: "light" | "dark";
 }
 
 const images = [
-  '/placeholder.svg?height=400&width=600',
-  '/placeholder.svg?height=400&width=600',
-  '/placeholder.svg?height=400&width=600',
-  '/placeholder.svg?height=400&width=600',
-  '/placeholder.svg?height=400&width=600',
-  '/placeholder.svg?height=400&width=600',
-]
+  "/placeholder.svg?height=400&width=600",
+  "/placeholder.svg?height=400&width=600",
+  "/placeholder.svg?height=400&width=600",
+  "/placeholder.svg?height=400&width=600",
+  "/placeholder.svg?height=400&width=600",
+  "/placeholder.svg?height=400&width=600",
+];
 
 export default function Gallery({ theme }: GalleryProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isSlideshow, setIsSlideshow] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSlideshow, setIsSlideshow] = useState(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
+    let interval: NodeJS.Timeout;
     if (isSlideshow) {
       interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-      }, 3000)
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 3000);
     }
-    return () => clearInterval(interval)
-  }, [isSlideshow])
+    return () => clearInterval(interval);
+  }, [isSlideshow]);
 
-  const nextImage = () => setCurrentIndex((currentIndex + 1) % images.length)
-  const prevImage = () => setCurrentIndex((currentIndex - 1 + images.length) % images.length)
+  const nextImage = () => setCurrentIndex((currentIndex + 1) % images.length);
+  const prevImage = () =>
+    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
 
-  const toggleSlideshow = () => setIsSlideshow(!isSlideshow)
+  const toggleSlideshow = () => setIsSlideshow(!isSlideshow);
 
   return (
-    <div className={`p-4 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
+    <div
+      className={`p-4 ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+      }`}
+    >
       <h2 className="text-xl font-bold mb-4">Gallery</h2>
       <div className="grid grid-cols-3 gap-4 mb-4">
         {images.map((image, index) => (
@@ -51,14 +56,14 @@ export default function Gallery({ theme }: GalleryProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              setSelectedImage(image)
-              setCurrentIndex(index)
+              setSelectedImage(image);
+              setCurrentIndex(index);
             }}
           />
         ))}
       </div>
       <Button onClick={toggleSlideshow}>
-        {isSlideshow ? 'Stop Slideshow' : 'Start Slideshow'}
+        {isSlideshow ? "Stop Slideshow" : "Start Slideshow"}
       </Button>
       <AnimatePresence>
         {selectedImage && (
@@ -101,6 +106,5 @@ export default function Gallery({ theme }: GalleryProps) {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
-
