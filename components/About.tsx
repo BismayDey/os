@@ -11,6 +11,5 @@ export default function About() {
         <li>Start menu and taskbar</li>
       </ul>
     </div>
-  )
+  );
 }
-

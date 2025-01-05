@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
-type Player = 'X' | 'O' | null
+type Player = "X" | "O" | null;
 
 export default function TicTacToe() {
-  const [board, setBoard] = useState<Player[]>(Array(9).fill(null))
-  const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>('X')
-  const [winner, setWinner] = useState<Player>(null)
+  const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
+  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
+  const [winner, setWinner] = useState<Player>(null);
 
   const checkWinner = (board: Player[]) => {
     const lines = [
@@ -21,38 +21,38 @@ export default function TicTacToe() {
       [2, 5, 8],
       [0, 4, 8],
       [2, 4, 6],
-    ]
+    ];
 
     for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i]
+      const [a, b, c] = lines[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a]
+        return board[a];
       }
     }
 
-    return null
-  }
+    return null;
+  };
 
   const handleClick = (index: number) => {
-    if (board[index] || winner) return
+    if (board[index] || winner) return;
 
-    const newBoard = [...board]
-    newBoard[index] = currentPlayer
-    setBoard(newBoard)
+    const newBoard = [...board];
+    newBoard[index] = currentPlayer;
+    setBoard(newBoard);
 
-    const newWinner = checkWinner(newBoard)
+    const newWinner = checkWinner(newBoard);
     if (newWinner) {
-      setWinner(newWinner)
+      setWinner(newWinner);
     } else {
-      setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X')
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
-  }
+  };
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null))
-    setCurrentPlayer('X')
-    setWinner(null)
-  }
+    setBoard(Array(9).fill(null));
+    setCurrentPlayer("X");
+    setWinner(null);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -79,19 +79,18 @@ export default function TicTacToe() {
           Winner: {winner}
         </motion.div>
       )}
-      {!winner && board.every(cell => cell !== null) && (
+      {!winner && board.every((cell) => cell !== null) && (
         <motion.div
           className="mt-4 text-xl font-bold"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          It's a draw!
+          a draw!
         </motion.div>
       )}
       <Button onClick={resetGame} className="mt-4">
         Reset Game
       </Button>
     </div>
-  )
+  );
 }
-

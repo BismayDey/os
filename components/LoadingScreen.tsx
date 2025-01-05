@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 interface LoadingScreenProps {
-  theme: 'light' | 'dark'
+  theme: "light" | "dark";
 }
 
 export default function LoadingScreen({ theme }: LoadingScreenProps) {
   return (
     <motion.div
       className={`fixed inset-0 flex items-center justify-center ${
-        theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+        theme === "dark" ? "bg-gray-900" : "bg-white"
       }`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -22,14 +22,14 @@ export default function LoadingScreen({ theme }: LoadingScreenProps) {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: "linear"
+          ease: "linear",
         }}
       >
         {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
           <motion.div
             key={index}
             className={`absolute w-4 h-4 rounded-full ${
-              theme === 'dark' ? 'bg-blue-500' : 'bg-purple-500'
+              theme === "dark" ? "bg-blue-500" : "bg-purple-500"
             }`}
             animate={{
               scale: [1, 1.5, 1],
@@ -56,12 +56,12 @@ export default function LoadingScreen({ theme }: LoadingScreenProps) {
         transition={{
           duration: 2,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       >
         <motion.h2
           className={`text-4xl font-bold ${
-            theme === 'dark' ? 'text-white' : 'text-gray-800'
+            theme === "dark" ? "text-white" : "text-gray-800"
           }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,12 +73,15 @@ export default function LoadingScreen({ theme }: LoadingScreenProps) {
       <motion.div
         className="absolute bottom-10"
         initial={{ width: 0 }}
-        animate={{ width: '60%' }}
+        animate={{ width: "60%" }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className={`h-1 ${theme === 'dark' ? 'bg-blue-500' : 'bg-purple-500'} rounded-full`}></div>
+        <div
+          className={`h-1 ${
+            theme === "dark" ? "bg-blue-500" : "bg-purple-500"
+          } rounded-full`}
+        ></div>
       </motion.div>
     </motion.div>
-  )
+  );
 }
-

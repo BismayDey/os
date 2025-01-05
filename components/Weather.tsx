@@ -1,36 +1,44 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Sun, Cloud, CloudRain, Snowflake } from 'lucide-react'
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Sun, Cloud, CloudRain, Snowflake } from "lucide-react";
+
+// Define types for weather data
+type WeatherData = {
+  main: { temp: number };
+  weather: { main: string }[];
+  name: string;
+};
 
 const weatherIcons = {
-  'Clear': Sun,
-  'Clouds': Cloud,
-  'Rain': CloudRain,
-  'Snow': Snowflake,
-}
+  Clear: Sun,
+  Clouds: Cloud,
+  Rain: CloudRain,
+  Snow: Snowflake,
+};
 
 export default function Weather() {
-  const [weather, setWeather] = useState<any>(null)
+  const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
-      // This is a mock API call. In a real application, you would call an actual weather API.
-      const mockWeather = {
+      // This is a mock API call. Replace with an actual API call if needed.
+      const mockWeather: WeatherData = {
         main: { temp: 20 },
-        weather: [{ main: 'Clear' }],
-        name: 'Sample City'
-      }
-      setWeather(mockWeather)
-    }
+        weather: [{ main: "Clear" }],
+        name: "Sample City",
+      };
+      setWeather(mockWeather);
+    };
 
-    fetchWeather()
-  }, [])
+    fetchWeather();
+  }, []);
 
-  if (!weather) return <div>Loading...</div>
+  if (!weather) return <div>Loading...</div>;
 
-  const WeatherIcon = weatherIcons[weather.weather[0].main as keyof typeof weatherIcons] || Cloud
+  const WeatherIcon =
+    weatherIcons[weather.weather[0].main as keyof typeof weatherIcons] || Cloud;
 
   return (
     <motion.div
@@ -42,7 +50,7 @@ export default function Weather() {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
       >
         <WeatherIcon className="w-16 h-16 text-blue-500" />
       </motion.div>
@@ -71,6 +79,5 @@ export default function Weather() {
         {weather.weather[0].main}
       </motion.p>
     </motion.div>
-  )
+  );
 }
-

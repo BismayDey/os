@@ -1,67 +1,76 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Play, Pause, SkipBack, SkipForward, Volume, VolumeX } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume,
+  VolumeX,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
 
 const songs = [
-  { title: 'Song 1', artist: 'Artist 1', src: '/path/to/song1.mp3' },
-  { title: 'Song 2', artist: 'Artist 2', src: '/path/to/song2.mp3' },
-  { title: 'Song 3', artist: 'Artist 3', src: '/path/to/song3.mp3' },
-]
+  { title: "Song 1", artist: "Artist 1", src: "/path/to/song1.mp3" },
+  { title: "Song 2", artist: "Artist 2", src: "/path/to/song2.mp3" },
+  { title: "Song 3", artist: "Artist 3", src: "/path/to/song3.mp3" },
+];
 
 export default function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentSong, setCurrentSong] = useState(0)
-  const [volume, setVolume] = useState(0.5)
-  const [isMuted, setIsMuted] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState(0);
+  const [volume, setVolume] = useState(0.5);
+  const [isMuted, setIsMuted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume
-      audioRef.current.muted = isMuted
+      audioRef.current.volume = volume;
+      audioRef.current.muted = isMuted;
     }
-  }, [volume, isMuted])
+  }, [volume, isMuted]);
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause()
+        audioRef.current.pause();
       } else {
-        audioRef.current.play()
+        audioRef.current.play();
       }
-      setIsPlaying(!isPlaying)
+      setIsPlaying(!isPlaying);
     }
-  }
+  };
 
-  const nextSong = () => setCurrentSong((currentSong + 1) % songs.length)
-  const prevSong = () => setCurrentSong((currentSong - 1 + songs.length) % songs.length)
+  const nextSong = () => setCurrentSong((currentSong + 1) % songs.length);
+  const prevSong = () =>
+    setCurrentSong((currentSong - 1 + songs.length) % songs.length);
 
   const handleVolumeChange = (newVolume: number) => {
-    setVolume(newVolume)
-    setIsMuted(false)
-  }
+    setVolume(newVolume);
+    setIsMuted(false);
+  };
 
-  const toggleMute = () => setIsMuted(!isMuted)
+  const toggleMute = () => setIsMuted(!isMuted);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
-      setProgress(progress)
+      const progress =
+        (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      setProgress(progress);
     }
-  }
+  };
 
   const handleSeek = (newProgress: number) => {
     if (audioRef.current) {
-      const time = (newProgress / 100) * audioRef.current.duration
-      audioRef.current.currentTime = time
-      setProgress(newProgress)
+      const time = (newProgress / 100) * audioRef.current.duration;
+      audioRef.current.currentTime = time;
+      setProgress(newProgress);
     }
-  }
+  };
 
   return (
     <div className="p-4">
@@ -92,7 +101,11 @@ export default function MusicPlayer() {
           </motion.div>
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Button onClick={togglePlay} variant="ghost" size="icon">
-              {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+              {isPlaying ? (
+                <Pause className="h-6 w-6" />
+              ) : (
+                <Play className="h-6 w-6" />
+              )}
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -103,7 +116,11 @@ export default function MusicPlayer() {
         </div>
         <div className="flex items-center mt-4">
           <Button onClick={toggleMute} variant="ghost" size="icon">
-            {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume className="h-6 w-6" />}
+            {isMuted ? (
+              <VolumeX className="h-6 w-6" />
+            ) : (
+              <Volume className="h-6 w-6" />
+            )}
           </Button>
           <Slider
             value={[volume * 100]}
@@ -119,7 +136,7 @@ export default function MusicPlayer() {
             <div
               key={index}
               className={`p-2 rounded cursor-pointer ${
-                index === currentSong ? 'bg-blue-100' : 'hover:bg-gray-200'
+                index === currentSong ? "bg-blue-100" : "hover:bg-gray-200"
               }`}
               onClick={() => {
                 setCurrentSong(index);
@@ -132,6 +149,5 @@ export default function MusicPlayer() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

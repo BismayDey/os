@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .glassmorphism {
@@ -19,4 +20,3 @@ html, body {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
-

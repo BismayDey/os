@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Notepad() {
-  const [text, setText] = useState('')
+  const [text, setText] = useState("");
 
   return (
     <Textarea
@@ -13,6 +13,5 @@ export default function Notepad() {
       placeholder="Type your notes here..."
       className="w-full h-full resize-none"
     />
-  )
+  );
 }
-
